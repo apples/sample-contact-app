@@ -40,6 +40,22 @@ Create a `.env.local` file:
 SECRET_COOKIE_PASSWORD=<some secret key>
 ```
 
+NOTE: Your secret key must be at least 32 characters long!
+
+Users
+-----
+
+By default, there is only one user, `admin`, with the password `monsoon`.
+
+To create a new user, unfortunately, you'll have to insert it into the database manually.
+
+You can run the `scripts/hash_password.ts` file to create a password hash.
+
+e.g.:
+```
+npx ts-node scripts/hash_password.ts monsoon
+```
+
 Running the Development Server
 ------------------------------
 
