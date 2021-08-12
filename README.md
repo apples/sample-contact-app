@@ -32,6 +32,7 @@ Setup
 
 ```sh
 npm install
+npx prisma generate
 ```
 
 Create a `.env.local` file:
