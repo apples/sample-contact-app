@@ -1,0 +1,42 @@
+@import '../layout.module.scss';
+
+.table {
+    width: 90%;
+    margin: auto;
+
+    table {
+        width: 100%;
+        border: 1px solid black;
+        table-layout: fixed;
+    }
+}
+
+.addressTable {
+    position: fixed;
+    left: 10%;
+    top: 10%;
+    background: white;
+    width: 80%;
+    margin: auto;
+    border: 3px solid gray;
+
+    table {
+        width: 100%;
+        border: 1px solid black;
+        table-layout: fixed;
+    }
+}
+
+
+
+.tableControls {
+    display: flex;
+
+    button {
+        font-size: 2rem;
+    }
+}
+
+.spacer {
+    flex-grow: 1;
+}

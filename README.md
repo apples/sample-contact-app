@@ -34,6 +34,11 @@ Setup
 npm install
 ```
 
+Create a `.env.local` file:
+```
+SECRET_COOKIE_PASSWORD=<some secret key>
+```
+
 Running the Development Server
 ------------------------------
 
