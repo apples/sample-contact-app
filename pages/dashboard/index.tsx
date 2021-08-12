@@ -46,6 +46,22 @@ const SortButtons = ({ name, setOrderBy, setOrder }: { name: string, setOrderBy:
     </span>;
 };
 
+const ValidateEmail = ({ email }: { email: string | null }) => {
+    const { data: result } = useSWR(`/api/validate_email?email=${email}`);
+
+    if (!result) {
+        return <span>?</span>;
+    }
+
+    if (result.valid) {
+        return <span>Yes</span>;
+    } else {
+        return <span title={result.reason}>
+            No
+        </span>;
+    }
+};
+
 const PersonTable = () => {
     const take = 5;
     const [skip, setSkip] = useState(0);
@@ -53,6 +69,15 @@ const PersonTable = () => {
     const [order, setOrder] = useState('desc');
 
     const { data: persons } = useSWR<Person[]>(`/api/persons?skip=${skip}&take=${take}&orderBy=${orderBy}&order=${order}`);
+
+    const mounted = useRef(true);
+    useEffect(() => {
+        mounted.current = true;
+        return () => {
+            mounted.current = false;
+        };
+    }, []);
+
 
     const prevPage = () => {
         if (skip > 0) {
@@ -78,6 +103,7 @@ const PersonTable = () => {
                     <th>First Name <SortButtons name={'first_name'} setOrderBy={setOrderBy} setOrder={setOrder} /></th>
                     <th>Last Name <SortButtons name={'last_name'} setOrderBy={setOrderBy} setOrder={setOrder} /></th>
                     <th>Email <SortButtons name={'email_address'} setOrderBy={setOrderBy} setOrder={setOrder} /></th>
+                    <th>IsValid</th>
                     <th>Date of Birth <SortButtons name={'date_of_birth'} setOrderBy={setOrderBy} setOrder={setOrder} /></th>
                     <th>Addresses</th>
                 </tr>
@@ -88,6 +114,7 @@ const PersonTable = () => {
                     <td>{p.first_name}</td>
                     <td>{p.last_name}</td>
                     <td>{p.email_address ?? '-'}</td>
+                    <td><ValidateEmail email={p.email_address} /></td>
                     <td>{p.date_of_birth ?? '-'}</td>
                     <td><AddressButton person_id={p.id} /></td>
                 </tr>)}
